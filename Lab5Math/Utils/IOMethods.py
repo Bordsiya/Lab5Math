@@ -116,7 +116,7 @@ def get_function_data():
     b = None
     try:
         if len(interval) > 2:
-            print('Ошибка: ', exceptions_arr['TooMuchLimits'])
+            print('Ошибка: ', exceptions_arr['TooMuchArguments'])
             exit(1)
 
         a = float(interval[0].replace(',', '.'))
