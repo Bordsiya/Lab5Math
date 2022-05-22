@@ -30,7 +30,7 @@ def newton_interpolation(table_function: TableFunction, x: float, lambda_table) 
         # ищем индекс x_i >= x
         x_right_ind = None
         for i in range(table_function.n):
-            if (x >= table_function.x_arr[i]) and (x <= table_function.x_arr[i + 1]):
+            if (x > table_function.x_arr[i]) and (x < table_function.x_arr[i + 1]):
                 x_right_ind = i + 1
                 break
             elif x == table_function.x_arr[i]:
@@ -75,7 +75,7 @@ def newton_interpolation(table_function: TableFunction, x: float, lambda_table) 
             # ищем левую границу интервала для x
             x_left_ind = None
             for i in range(0, table_function.n - 1):
-                if (x >= table_function.x_arr[i]) and (x <= table_function.x_arr[i + 1]):
+                if (x > table_function.x_arr[i]) and (x < table_function.x_arr[i + 1]):
                     x_left_ind = i
                     break
                 elif x == table_function.x_arr[i]:
