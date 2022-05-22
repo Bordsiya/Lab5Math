@@ -21,7 +21,7 @@ def stirling_interpolation(table_function: TableFunction, x: float, lambda_table
     if not is_equally_spaced:
         return Answer(False, "Узлы неравноотстоящие", 0)
 
-    # ищем узел x0, максимально близкий к x
+    # ищем узел x0 = a
     if table_function.n % 2 == 0:
         x_0 = int(table_function.n / 2 - 1)
     else:
