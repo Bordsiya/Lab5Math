@@ -14,6 +14,7 @@ def get_f(ind: list[int], table_function: TableFunction):
 
 
 def newton_interpolation(table_function: TableFunction, x: float, lambda_table) -> Answer:
+    message = ""
     if table_function.n < 2:
         return Answer(False, "Количество узлов слишком мало", 0)
     is_equally_spaced = True
@@ -39,7 +40,11 @@ def newton_interpolation(table_function: TableFunction, x: float, lambda_table) 
                 return Answer(True, "", table_function.y_arr[i + 1])
 
         if x_right_ind is None:
-            return Answer(False, "Переданный x находится вне промежутка", 0)
+            message = "Переданный x находится вне промежутка"
+            if x > table_function.x_arr[len(table_function.x_arr) - 1]:
+                x_left_ind = len(table_function.x_arr) - 1
+            else:
+                x_left_ind = 0
 
         n = 0
         args = []
@@ -69,7 +74,7 @@ def newton_interpolation(table_function: TableFunction, x: float, lambda_table) 
                     comp_t *= curr_t
                     curr_t += 1
                 n += comp_t * lambda_table[table_function.n - i - 1][i] / get_factorial(i)
-            return Answer(True, "", n)
+            return Answer(True, message, n)
         else:
             # интерполирование вперед
             # ищем левую границу интервала для x
@@ -83,7 +88,11 @@ def newton_interpolation(table_function: TableFunction, x: float, lambda_table) 
                 elif x == table_function.x_arr[i + 1]:
                     return Answer(True, "", table_function.y_arr[i + 1])
             if x_left_ind is None:
-                return Answer(False, "Переданный x находится вне промежутка", 0)
+                message = "Переданный x находится вне промежутка"
+                if x > table_function.x_arr[len(table_function.x_arr) - 1]:
+                    x_left_ind = len(table_function.x_arr) - 1
+                else:
+                    x_left_ind = 0
 
             t = (x - table_function.x_arr[x_left_ind]) / h
             n = lambda_table[x_left_ind][0]
@@ -94,4 +103,4 @@ def newton_interpolation(table_function: TableFunction, x: float, lambda_table) 
                     comp_t *= curr_t
                     curr_t -= 1
                 n += comp_t * lambda_table[x_left_ind][i] / get_factorial(i)
-            return Answer(True, "", n)
+            return Answer(True, message, n)
