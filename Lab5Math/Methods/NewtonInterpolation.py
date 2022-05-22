@@ -3,16 +3,6 @@ from Model.TableFunction import TableFunction
 from Utils.MathMethods import get_factorial
 
 
-def get_f(ind: list[int], table_function: TableFunction):
-    if len(ind) == 1:
-        return table_function.y_arr[ind[0]]
-    if len(ind) == 2:
-        return (table_function.y_arr[ind[1]] - table_function.y_arr[ind[0]])\
-               / (table_function.x_arr[ind[1]] - table_function.x_arr[ind[0]])
-    return (get_f(ind[1:], table_function) - get_f(ind[:len(ind) - 1], table_function))\
-           / (table_function.x_arr[ind[len(ind) - 1]] - table_function.x_arr[ind[0]])
-
-
 def newton_interpolation(table_function: TableFunction, x: float, lambda_table) -> Answer:
     message = ""
     if table_function.n < 2:
@@ -28,38 +18,8 @@ def newton_interpolation(table_function: TableFunction, x: float, lambda_table) 
 
     if not is_equally_spaced:
         # неравноотстоящие узлы
-        # ищем индекс x_i >= x
-        x_right_ind = None
-        for i in range(table_function.n):
-            if (x > table_function.x_arr[i]) and (x < table_function.x_arr[i + 1]):
-                x_right_ind = i + 1
-                break
-            elif x == table_function.x_arr[i]:
-                return Answer(True, "", table_function.y_arr[i])
-            elif x == table_function.x_arr[i + 1]:
-                return Answer(True, "", table_function.y_arr[i + 1])
-
-        if x_right_ind is None:
-            message = "Переданный x находится вне промежутка"
-            if x > table_function.x_arr[len(table_function.x_arr) - 1]:
-                x_right_ind = len(table_function.x_arr) - 1
-            else:
-                x_right_ind = 0
-
-        n = 0
-        args = []
-        for i in range(x_right_ind + 1):
-            if i == 0:
-                n += get_f([i], table_function)
-                args.append(0)
-            else:
-                comp = 1
-                for j in range(i):
-                    comp *= (x - table_function.x_arr[j])
-                args.append(i)
-                comp *= get_f(args, table_function)
-                n += comp
-        return Answer(True, "", n)
+        # ищем индекс x_i <= x
+        return Answer(False, "Неравноотстоящие узлы", 0)
     else:
         # равноотстоящие узлы
         x_middle = (table_function.x_arr[0] + table_function.x_arr[table_function.n - 1]) / 2
