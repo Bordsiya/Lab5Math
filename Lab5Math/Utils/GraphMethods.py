@@ -23,11 +23,11 @@ def get_polynomial(method_id: int, table_function: TableFunction, x_left: float,
 def draw_graphs(table_function: TableFunction, x: float, answers: list[Answer]):
     graphs_img_name = "graphs_interpolation"
 
-    if os.path.exists('/' + graphs_img_name):
-        os.remove('/' + graphs_img_name)
+    if os.path.exists(('./' + graphs_img_name + '.png').strip()):
+        os.remove(('./' + graphs_img_name + '.png').strip())
     for i in range(len(answers)):
-        if os.path.exists('/' + methods_img_names[i]):
-            os.remove('/' + methods_img_names[i])
+        if os.path.exists(('./' + methods_img_names[i] + '.png').strip()):
+            os.remove(('./' + methods_img_names[i] + '.png').strip())
 
     plt.cla()
     plt.clf()
