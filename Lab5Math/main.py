@@ -6,6 +6,7 @@ table_function = get_data()
 x = get_x(table_function)
 answers = do_methods(table_function, x)
 print_table_points(table_function)
-print_table_lambda(create_table_lambdas(table_function))
+if answers[2].message != "Неравноотстоящие узлы":
+    print_table_lambda(create_table_lambdas(table_function))
 draw_graphs(table_function, x, answers)
 print_answers(answers)
