@@ -42,9 +42,9 @@ def newton_interpolation(table_function: TableFunction, x: float, lambda_table) 
         if x_right_ind is None:
             message = "Переданный x находится вне промежутка"
             if x > table_function.x_arr[len(table_function.x_arr) - 1]:
-                x_left_ind = len(table_function.x_arr) - 1
+                x_right_ind = len(table_function.x_arr) - 1
             else:
-                x_left_ind = 0
+                x_right_ind = 0
 
         n = 0
         args = []
