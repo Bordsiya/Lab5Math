@@ -225,7 +225,7 @@ def print_table_points(table_function: TableFunction):
 def print_table_lambda(lambda_table):
     print("---------------------------")
     print("Таблица конечных разностей:")
-    headers = ['x']
+    headers = ['y']
     for i in range(len(lambda_table)):
-        headers.append('y_' + str(i))
+        headers.append('y_' + str(i + 1))
     print(tabulate(lambda_table, headers, tablefmt="github"))
